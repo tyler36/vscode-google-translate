@@ -3,7 +3,7 @@
     "displayName": "Vscode Google Translate",
     "description": "Translate text right in your code",
     "publisher": "funkyremi",
-    "version": "1.1.5",
+    "version": "1.4.2",
     "icon": "icon.png",
     "repository": {
         "type": "git",
@@ -16,7 +16,10 @@
         "Formatters"
     ],
     "activationEvents": [
-        "onCommand:extension.translateText"
+        "onCommand:extension.translateText",
+        "onCommand:extension.translateTextPreferred",
+        "onCommand:extension.translateLinesUnderCursor",
+        "onCommand:extension.translateLinesUnderCursorPreferred"
     ],
     "main": "./extension",
     "contributes": {
@@ -24,8 +27,46 @@
             {
                 "command": "extension.translateText",
                 "title": "Translate selection(s)"
+            },
+            {
+                "command": "extension.translateTextPreferred",
+                "title": "Translate selection(s) to preferred language"
+            },
+            {
+                "command": "extension.translateLinesUnderCursor",
+                "title": "Translate line(s) under the cursor"
+            },
+            {
+                "command": "extension.translateLinesUnderCursorPreferred",
+                "title": "Translate line(s) under the cursor to preferred language"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "Vscode Google Translate",
+            "type": "object",
+            "properties": {
+                "vscodeGoogleTranslate.preferredLanguage": {
+                    "type": "string",
+                    "description": "The preferred language setting in standard 2-char language Code Reference code"
+                },
+                "vscodeGoogleTranslate.proxyHost": {
+                    "type": "string",
+                    "description": "The proxy host (set it to enable proxy)"
+                },
+                "vscodeGoogleTranslate.proxyPort": {
+                    "type": "string",
+                    "description": "The proxy port"
+                },
+                "vscodeGoogleTranslate.proxyUsername": {
+                    "type": "string",
+                    "description": "The proxy username (optional)"
+                },
+                "vscodeGoogleTranslate.proxyPassword": {
+                    "type": "string",
+                    "description": "The proxy password (optional)"
+                }
+            }
+        }
     },
     "keybindings": [
         {
@@ -41,9 +82,10 @@
         "@types/mocha": "^5.2.5",
         "@types/node": "^10.12.10",
         "eslint": "^4.11.0",
-        "vscode": "^1.1.21"
+        "vscode": "^1.1.35"
     },
     "dependencies": {
-        "google-translate-query": "^2.4.4"
+        "google-translate-open-api": "^1.3.2",
+        "he": "^1.2.0"
     }
 }
